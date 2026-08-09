@@ -4,6 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GAIA — a deep time planet simulator</title>
+<meta name="description" content="Grow a planet from a single seed and run it for billions of years — continents drift, mountains rise and wear away, seas open and close, and the rocks underfoot keep the record. Free early access for Windows.">
+<link rel="canonical" href="https://stevecastle.github.io/gaia-site/">
+
+<!-- link previews (Discord, Slack, iMessage, Facebook, LinkedIn).
+     og:image and og:url MUST be absolute — scrapers do not resolve relative
+     paths. The image is built by build\make-og-image.ps1; if you change its
+     size, change og:image:width/height to match or previews get letterboxed. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GAIA">
+<meta property="og:title" content="GAIA — a deep time planet simulator">
+<meta property="og:description" content="Grow a planet from a single seed and run it for billions of years — continents drift, mountains rise and wear away, seas open and close, and the rocks underfoot keep the record. Free early access for Windows.">
+<meta property="og:url" content="https://stevecastle.github.io/gaia-site/">
+<meta property="og:image" content="https://stevecastle.github.io/gaia-site/static/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A simulated planet — blue oceans, green continents, white ice caps — beside the title GAIA, a deep time planet simulator.">
+
+<!-- Twitter/X reads its own namespace and falls back to og:* for anything
+     missing; summary_large_image is what makes the big card instead of a thumb -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GAIA — a deep time planet simulator">
+<meta name="twitter:description" content="Grow a planet from a single seed and run it for billions of years. Free early access for Windows.">
+<meta name="twitter:image" content="https://stevecastle.github.io/gaia-site/static/og-image.jpg">
+<meta name="twitter:image:alt" content="A simulated planet beside the title GAIA, a deep time planet simulator.">
+
+<meta name="theme-color" content="#f6f1e3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -173,11 +200,9 @@
 
 	<div class="buttons">
 		<!-- these two hrefs point at GitHub Release assets and are rewritten by
-		     build\package.ps1 -UpdateSite each release — don't hand-edit them.
-		     patreon: your page (patreon.com/yourname) — support for now,
-		     member rewards later; a proper release (Steam?) when it's done -->
+		     build\package.ps1 -UpdateSite each release — don't hand-edit them. -->
 		<a class="btn download" href="https://github.com/SteveCastle/gaia-site/releases/download/v0.1.0/Gaia-Setup-0.1.0.exe">⬇ Download for Windows</a>
-		<a class="btn donate" href="https://www.patreon.com/">♥ Support on Patreon</a>
+		<a class="btn donate" href="https://www.patreon.com/cw/GaiaGeologySimulator">♥ Support on Patreon</a>
 	</div>
 	<p class="small-note">
 		early access is free — patrons keep the mantle convecting<br>
