@@ -1,0 +1,48 @@
+# Deploys the Gaia landing page to GitHub Pages.
+#
+# This file is the source of truth in the PRIVATE gaia repo; build\publish-site.ps1
+# copies it into the public gaia-site repo as .github/workflows/pages.yml. Edit it
+# here, not there, or the next publish will overwrite your changes.
+#
+# The public repo holds only the page and the release binaries — no game source.
+name: Deploy site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # lets you redeploy from the Actions tab without pushing anything
+  workflow_dispatch:
+
+# GITHUB_TOKEN needs to mint a Pages deployment; id-token is the OIDC
+# handshake that deploy-pages uses to prove the artifact came from this run.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race. Queue instead of cancelling, so a deploy already
+# uploading isn't killed halfway.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # the repo root IS the site: index.html and static/ sit at the top
+          path: .
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

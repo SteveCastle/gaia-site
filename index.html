@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GAIA — a deep time planet simulator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+	:root {
+		--paper: #f6f1e3;
+		--ink: #2e2a24;
+		--faded: #7a6f5d;
+		--accent: #3e7a4e;
+		--warm: #c85a32;
+		--sea: #2f6f8e;
+	}
+	* { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--paper);
+		background-image: radial-gradient(#e9e2cf 1px, transparent 1px);
+		background-size: 22px 22px;
+		color: var(--ink);
+		/* naturalist print, not handwriting: IM Fell for the antique-map
+		   display voice, EB Garamond for field-journal body text */
+		font-family: "EB Garamond", Georgia, "Times New Roman", serif;
+		font-size: 1.08rem;
+		line-height: 1.55;
+	}
+	h1, .subtitle, .btn, footer, .video-note, .small-note {
+		font-family: "IM Fell English", "EB Garamond", Georgia, serif;
+	}
+	main {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 40px 20px 80px;
+	}
+	h1 {
+		font-size: 3.2rem;
+		letter-spacing: 0.35em;
+		margin: 0;
+		text-align: center;
+	}
+	.subtitle {
+		text-align: center;
+		color: var(--faded);
+		margin-top: 4px;
+		font-style: italic;
+		font-variant: small-caps;
+		letter-spacing: 0.18em;
+	}
+	.doodle {
+		text-align: center;
+		color: var(--faded);
+		letter-spacing: 0.6em;
+		margin: 26px 0;
+		user-select: none;
+	}
+	.video-frame {
+		border: 3px dashed var(--ink);
+		border-radius: 6px;
+		padding: 10px;
+		background: #fffdf6;
+		transform: rotate(0.4deg);
+		box-shadow: 4px 5px 0 rgba(46, 42, 36, 0.14);
+	}
+	.video-frame video {
+		display: block;
+		width: 100%;
+		height: auto;
+		/* matches the encoded file, so the page reserves the right space
+		   before a single video byte arrives and nothing jumps on load */
+		aspect-ratio: 1280 / 688;
+		background: #0b0d12;
+		border-radius: 4px;
+	}
+	.video-note {
+		text-align: center;
+		font-size: 0.95rem;
+		font-style: italic;
+		color: var(--faded);
+		margin: 8px 0 0;
+	}
+	p.story {
+		font-size: 1.05rem;
+		margin: 1.1em 0;
+	}
+	.buttons {
+		display: flex;
+		gap: 22px;
+		justify-content: center;
+		flex-wrap: wrap;
+		margin: 38px 0 10px;
+	}
+	.btn {
+		display: inline-block;
+		padding: 14px 26px;
+		font-family: inherit;
+		font-size: 1.15rem;
+		color: var(--paper);
+		text-decoration: none;
+		border: 3px solid var(--ink);
+		border-radius: 10px;
+		box-shadow: 4px 4px 0 var(--ink);
+		transition: transform 0.08s ease, box-shadow 0.08s ease;
+	}
+	.btn:hover {
+		transform: translate(2px, 2px);
+		box-shadow: 2px 2px 0 var(--ink);
+	}
+	.btn.download { background: var(--accent); transform: rotate(-1.2deg); }
+	.btn.download:hover { transform: rotate(-1.2deg) translate(2px, 2px); }
+	.btn.donate { background: var(--warm); transform: rotate(1.4deg); }
+	.btn.donate:hover { transform: rotate(1.4deg) translate(2px, 2px); }
+	.small-note {
+		text-align: center;
+		color: var(--faded);
+		font-size: 0.85rem;
+		line-height: 1.7;
+	}
+	.portable-link { color: var(--sea); text-decoration-style: dotted; }
+	footer {
+		margin-top: 60px;
+		text-align: center;
+		color: var(--faded);
+		font-size: 0.85rem;
+		transform: rotate(-0.6deg);
+	}
+	@media (max-width: 520px) {
+		h1 { font-size: 2.2rem; letter-spacing: 0.2em; }
+	}
+</style>
+</head>
+<body>
+<main>
+	<h1>GAIA</h1>
+	<p class="subtitle">a deep time planet simulator</p>
+
+	<div class="doodle">· ✦ · ⛰ · ✦ ·</div>
+
+	<div class="video-frame">
+		<!-- encoded by build\encode-video.ps1 from the raw capture in media\.
+		     silent, so it can autoplay everywhere; controls let people scrub. -->
+		<video poster="static/world-history-poster.jpg"
+			width="1280" height="688"
+			autoplay muted loop playsinline controls preload="metadata"
+			title="a whole world, born to dead">
+			<source src="static/world-history.mp4" type="video/mp4">
+			<p>Your browser can't play this clip —
+				<a href="static/world-history.mp4">download it instead</a>.</p>
+		</video>
+	</div>
+	<p class="video-note">↑ four and a half billion years, in forty seconds</p>
+
+	<div class="doodle">~ ~ ~</div>
+
+	<p class="story">
+		Gaia simulates the whole geological life of a planet — born as an ocean
+		of molten rock, its first seas rained out of a steam sky, and from there
+		six billion years of continents drifting, mountains rising and wearing
+		back down, supercontinents assembling and shattering, life greening the
+		land — until the engine inside finally cools, the magnetic field gutters
+		out, and the world keeps only its scars.
+	</p>
+	<p class="story">
+		Every world grows from a single seed, and every run is a story. Watch it
+		unfold, hover anywhere to read the rocks beneath, nudge the sun or the
+		mantle and see what happens, and when it's all over — rewind time and
+		replay the entire life of your planet. Or branch history and try again.
+	</p>
+
+	<div class="buttons">
+		<!-- these two hrefs point at GitHub Release assets and are rewritten by
+		     build\package.ps1 -UpdateSite each release — don't hand-edit them.
+		     patreon: your page (patreon.com/yourname) — support for now,
+		     member rewards later; a proper release (Steam?) when it's done -->
+		<a class="btn download" href="https://github.com/SteveCastle/gaia-site/releases/download/v0.1.0/Gaia-Setup-0.1.0.exe">⬇ Download for Windows</a>
+		<a class="btn donate" href="https://www.patreon.com/">♥ Support on Patreon</a>
+	</div>
+	<p class="small-note">
+		early access is free — patrons keep the mantle convecting<br>
+		Windows 10+, 64-bit · no installer? grab the
+		<a class="portable-link" href="https://github.com/SteveCastle/gaia-site/releases/download/v0.1.0/Gaia-0.1.0-windows-portable.zip">portable ZIP</a>
+	</p>
+
+	<footer>
+		hand-made with rocks, rain, and deep time
+	</footer>
+</main>
+</body>
+</html>
