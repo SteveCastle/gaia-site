@@ -1,225 +1,645 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GAIA — a deep time planet simulator</title>
-<meta name="description" content="Grow a planet from a single seed and run it for billions of years — continents drift, mountains rise and wear away, seas open and close, and the rocks underfoot keep the record. Free early access for Windows.">
-<link rel="canonical" href="https://stevecastle.github.io/gaia-site/">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GAIA — a deep time planet simulator</title>
+    <meta
+      name="description"
+      content="Grow a planet from a single seed and run it for billions of years — continents drift, mountains rise and wear away, seas open and close, and the rocks underfoot keep the record. Free early access for Windows."
+    />
+    <link rel="canonical" href="https://stevecastle.github.io/gaia-site/" />
 
-<!-- link previews (Discord, Slack, iMessage, Facebook, LinkedIn).
+    <!-- link previews (Discord, Slack, iMessage, Facebook, LinkedIn).
      og:image and og:url MUST be absolute — scrapers do not resolve relative
      paths. The image is built by build\make-og-image.ps1; if you change its
      size, change og:image:width/height to match or previews get letterboxed. -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="GAIA">
-<meta property="og:title" content="GAIA — a deep time planet simulator">
-<meta property="og:description" content="Grow a planet from a single seed and run it for billions of years — continents drift, mountains rise and wear away, seas open and close, and the rocks underfoot keep the record. Free early access for Windows.">
-<meta property="og:url" content="https://stevecastle.github.io/gaia-site/">
-<meta property="og:image" content="https://stevecastle.github.io/gaia-site/static/og-image.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="A simulated planet — blue oceans, green continents, white ice caps — beside the title GAIA, a deep time planet simulator.">
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="GAIA" />
+    <meta property="og:title" content="GAIA — a deep time planet simulator" />
+    <meta
+      property="og:description"
+      content="Grow a planet from a single seed and run it for billions of years — continents drift, mountains rise and wear away, seas open and close, and the rocks underfoot keep the record. Free early access for Windows."
+    />
+    <meta
+      property="og:url"
+      content="https://stevecastle.github.io/gaia-site/"
+    />
+    <meta
+      property="og:image"
+      content="https://stevecastle.github.io/gaia-site/static/og-image.jpg"
+    />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A simulated planet — blue oceans, green continents, white ice caps — beside the title GAIA, a deep time planet simulator."
+    />
 
-<!-- Twitter/X reads its own namespace and falls back to og:* for anything
+    <!-- Twitter/X reads its own namespace and falls back to og:* for anything
      missing; summary_large_image is what makes the big card instead of a thumb -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="GAIA — a deep time planet simulator">
-<meta name="twitter:description" content="Grow a planet from a single seed and run it for billions of years. Free early access for Windows.">
-<meta name="twitter:image" content="https://stevecastle.github.io/gaia-site/static/og-image.jpg">
-<meta name="twitter:image:alt" content="A simulated planet beside the title GAIA, a deep time planet simulator.">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="GAIA — a deep time planet simulator" />
+    <meta
+      name="twitter:description"
+      content="Grow a planet from a single seed and run it for billions of years. Free early access for Windows."
+    />
+    <meta
+      name="twitter:image"
+      content="https://stevecastle.github.io/gaia-site/static/og-image.jpg"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="A simulated planet beside the title GAIA, a deep time planet simulator."
+    />
 
-<meta name="theme-color" content="#f6f1e3">
+    <meta name="theme-color" content="#f6f1e3" />
 
-<!-- This is a project page served under /gaia-site/, so a browser's automatic
+    <!-- This is a project page served under /gaia-site/, so a browser's automatic
      request for /favicon.ico goes to the user root and never reaches us —
      these explicit links are what actually get the icon shown. -->
-<link rel="icon" href="favicon.ico" sizes="48x48 32x32 16x16">
-<link rel="icon" type="image/png" sizes="32x32" href="static/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="static/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<style>
-	:root {
-		--paper: #f6f1e3;
-		--ink: #2e2a24;
-		--faded: #7a6f5d;
-		--accent: #3e7a4e;
-		--warm: #c85a32;
-		--sea: #2f6f8e;
-	}
-	* { box-sizing: border-box; }
-	body {
-		margin: 0;
-		background: var(--paper);
-		background-image: radial-gradient(#e9e2cf 1px, transparent 1px);
-		background-size: 22px 22px;
-		color: var(--ink);
-		/* naturalist print, not handwriting: IM Fell for the antique-map
+    <link rel="icon" href="favicon.ico" sizes="48x48 32x32 16x16" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="static/favicon-32.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="static/apple-touch-icon.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f6f1e3;
+        --ink: #2e2a24;
+        --faded: #7a6f5d;
+        --accent: #3e7a4e;
+        --warm: #c85a32;
+        --sea: #2f6f8e;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        background-image: radial-gradient(#e9e2cf 1px, transparent 1px);
+        background-size: 22px 22px;
+        color: var(--ink);
+        /* naturalist print, not handwriting: IM Fell for the antique-map
 		   display voice, EB Garamond for field-journal body text */
-		font-family: "EB Garamond", Georgia, "Times New Roman", serif;
-		font-size: 1.08rem;
-		line-height: 1.55;
-	}
-	h1, .subtitle, .btn, footer, .video-note, .small-note {
-		font-family: "IM Fell English", "EB Garamond", Georgia, serif;
-	}
-	main {
-		max-width: 720px;
-		margin: 0 auto;
-		padding: 40px 20px 80px;
-	}
-	h1 {
-		font-size: 3.2rem;
-		letter-spacing: 0.35em;
-		margin: 0;
-		text-align: center;
-	}
-	.subtitle {
-		text-align: center;
-		color: var(--faded);
-		margin-top: 4px;
-		font-style: italic;
-		font-variant: small-caps;
-		letter-spacing: 0.18em;
-	}
-	.doodle {
-		text-align: center;
-		color: var(--faded);
-		letter-spacing: 0.6em;
-		margin: 26px 0;
-		user-select: none;
-	}
-	.video-frame {
-		border: 3px dashed var(--ink);
-		border-radius: 6px;
-		padding: 10px;
-		background: #fffdf6;
-		transform: rotate(0.4deg);
-		box-shadow: 4px 5px 0 rgba(46, 42, 36, 0.14);
-	}
-	.video-frame video {
-		display: block;
-		width: 100%;
-		height: auto;
-		/* matches the encoded file, so the page reserves the right space
+        font-family: "EB Garamond", Georgia, "Times New Roman", serif;
+        font-size: 1.08rem;
+        line-height: 1.55;
+      }
+      h1,
+      .subtitle,
+      .btn,
+      footer,
+      .video-note,
+      .small-note {
+        font-family: "IM Fell English", "EB Garamond", Georgia, serif;
+      }
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 40px 20px 80px;
+      }
+      h1 {
+        font-size: 3.2rem;
+        letter-spacing: 0.35em;
+        margin: 0;
+        text-align: center;
+      }
+      .subtitle {
+        text-align: center;
+        color: var(--faded);
+        margin-top: 4px;
+        font-style: italic;
+        font-variant: small-caps;
+        letter-spacing: 0.18em;
+      }
+      .doodle {
+        text-align: center;
+        color: var(--faded);
+        letter-spacing: 0.6em;
+        margin: 26px 0;
+        user-select: none;
+      }
+      .video-frame {
+        border: 3px dashed var(--ink);
+        border-radius: 6px;
+        padding: 10px;
+        background: #fffdf6;
+        transform: rotate(0.4deg);
+        box-shadow: 4px 5px 0 rgba(46, 42, 36, 0.14);
+      }
+      .video-frame video {
+        display: block;
+        width: 100%;
+        height: auto;
+        /* matches the encoded file, so the page reserves the right space
 		   before a single video byte arrives and nothing jumps on load */
-		aspect-ratio: 1280 / 688;
-		background: #0b0d12;
-		border-radius: 4px;
-	}
-	.video-note {
-		text-align: center;
-		font-size: 0.95rem;
-		font-style: italic;
-		color: var(--faded);
-		margin: 8px 0 0;
-	}
-	p.story {
-		font-size: 1.05rem;
-		margin: 1.1em 0;
-	}
-	.buttons {
-		display: flex;
-		gap: 22px;
-		justify-content: center;
-		flex-wrap: wrap;
-		margin: 38px 0 10px;
-	}
-	.btn {
-		display: inline-block;
-		padding: 14px 26px;
-		font-family: inherit;
-		font-size: 1.15rem;
-		color: var(--paper);
-		text-decoration: none;
-		border: 3px solid var(--ink);
-		border-radius: 10px;
-		box-shadow: 4px 4px 0 var(--ink);
-		transition: transform 0.08s ease, box-shadow 0.08s ease;
-	}
-	.btn:hover {
-		transform: translate(2px, 2px);
-		box-shadow: 2px 2px 0 var(--ink);
-	}
-	.btn.download { background: var(--accent); transform: rotate(-1.2deg); }
-	.btn.download:hover { transform: rotate(-1.2deg) translate(2px, 2px); }
-	.btn.donate { background: var(--warm); transform: rotate(1.4deg); }
-	.btn.donate:hover { transform: rotate(1.4deg) translate(2px, 2px); }
-	.small-note {
-		text-align: center;
-		color: var(--faded);
-		font-size: 0.85rem;
-		line-height: 1.7;
-	}
-	.portable-link { color: var(--sea); text-decoration-style: dotted; }
-	footer {
-		margin-top: 60px;
-		text-align: center;
-		color: var(--faded);
-		font-size: 0.85rem;
-		transform: rotate(-0.6deg);
-	}
-	@media (max-width: 520px) {
-		h1 { font-size: 2.2rem; letter-spacing: 0.2em; }
-	}
-</style>
-</head>
-<body>
-<main>
-	<h1>GAIA</h1>
-	<p class="subtitle">a deep time planet simulator</p>
+        aspect-ratio: 1280 / 688;
+        background: #0b0d12;
+        border-radius: 4px;
+      }
+      .video-note {
+        text-align: center;
+        font-size: 0.95rem;
+        font-style: italic;
+        color: var(--faded);
+        margin: 8px 0 0;
+      }
+      p.story {
+        font-size: 1.05rem;
+        margin: 1.1em 0;
+      }
+      .systems-intro {
+        font-family: "IM Fell English", "EB Garamond", Georgia, serif;
+        font-style: italic;
+        color: var(--faded);
+        text-align: center;
+        margin: 2.2em 0 1em;
+        letter-spacing: 0.04em;
+      }
+      .systems {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px 30px;
+      }
+      .systems li {
+        font-size: 0.95rem;
+        line-height: 1.42;
+        border-left: 2px solid #ded5bd;
+        padding-left: 12px;
+      }
+      .systems b {
+        display: block;
+        font-family: "IM Fell English", "EB Garamond", Georgia, serif;
+        font-weight: 400;
+        font-variant: small-caps;
+        letter-spacing: 0.07em;
+        font-size: 1.05rem;
+      }
+      .systems span {
+        color: var(--faded);
+      }
+      @media (max-width: 560px) {
+        .systems {
+          grid-template-columns: 1fr;
+        }
+      }
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin: 0;
+        padding: 0;
+      }
+      .gallery figure {
+        margin: 0;
+      }
+      .gallery img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        background: #0b0d12;
+        border: 2px solid var(--ink);
+        border-radius: 4px;
+      }
+      .gallery figcaption {
+        font-family: "IM Fell English", "EB Garamond", Georgia, serif;
+        font-variant: small-caps;
+        letter-spacing: 0.06em;
+        font-size: 0.9rem;
+        margin-top: 5px;
+        line-height: 1.3;
+      }
+      .gallery figcaption span {
+        display: block;
+        font-variant: normal;
+        letter-spacing: 0;
+        font-size: 0.82rem;
+        color: var(--faded);
+      }
+      @media (max-width: 560px) {
+        .gallery {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .buttons {
+        display: flex;
+        gap: 22px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 38px 0 10px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 14px 26px;
+        font-family: inherit;
+        font-size: 1.15rem;
+        color: var(--paper);
+        text-decoration: none;
+        border: 3px solid var(--ink);
+        border-radius: 10px;
+        box-shadow: 4px 4px 0 var(--ink);
+        transition:
+          transform 0.08s ease,
+          box-shadow 0.08s ease;
+      }
+      .btn:hover {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 var(--ink);
+      }
+      .btn.download {
+        background: var(--accent);
+        transform: rotate(-1.2deg);
+      }
+      .btn.download:hover {
+        transform: rotate(-1.2deg) translate(2px, 2px);
+      }
+      .btn.donate {
+        background: var(--warm);
+        transform: rotate(1.4deg);
+      }
+      .btn.donate:hover {
+        transform: rotate(1.4deg) translate(2px, 2px);
+      }
+      .small-note {
+        text-align: center;
+        color: var(--faded);
+        font-size: 0.85rem;
+        line-height: 1.7;
+      }
+      .portable-link {
+        color: var(--sea);
+        text-decoration-style: dotted;
+      }
+      footer {
+        margin-top: 60px;
+        text-align: center;
+        color: var(--faded);
+        font-size: 0.85rem;
+        transform: rotate(-0.6deg);
+      }
+      @media (max-width: 520px) {
+        h1 {
+          font-size: 2.2rem;
+          letter-spacing: 0.2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>GAIA</h1>
+      <p class="subtitle">a deep time planet simulator</p>
 
-	<div class="doodle">· ✦ · ⛰ · ✦ ·</div>
+      <div class="doodle">· ✦ · ⛰ · ✦ ·</div>
 
-	<div class="video-frame">
-		<!-- encoded by build\encode-video.ps1 from the raw capture in media\.
+      <div class="video-frame">
+        <!-- encoded by build\encode-video.ps1 from the raw capture in media\.
 		     silent, so it can autoplay everywhere; controls let people scrub. -->
-		<video poster="static/world-history-poster.jpg"
-			width="1280" height="688"
-			autoplay muted loop playsinline controls preload="metadata"
-			title="a whole world, born to dead">
-			<source src="static/world-history.mp4" type="video/mp4">
-			<p>Your browser can't play this clip —
-				<a href="static/world-history.mp4">download it instead</a>.</p>
-		</video>
-	</div>
-	<p class="video-note">↑ four and a half billion years, in forty seconds</p>
+        <video
+          poster="static/world-history-poster.jpg"
+          width="1280"
+          height="688"
+          autoplay
+          muted
+          loop
+          playsinline
+          controls
+          preload="metadata"
+          title="a whole world, born to dead"
+        >
+          <source src="static/world-history.mp4" type="video/mp4" />
+          <p>
+            Your browser can't play this clip —
+            <a href="static/world-history.mp4">download it instead</a>.
+          </p>
+        </video>
+      </div>
+      <p class="video-note">
+        ↑ four and a half billion years, in forty seconds
+      </p>
 
-	<div class="doodle">~ ~ ~</div>
+      <div class="doodle">~ ~ ~</div>
 
-	<p class="story">
-		Gaia simulates the whole geological life of a planet — born as an ocean
-		of molten rock, its first seas rained out of a steam sky, and from there
-		six billion years of continents drifting, mountains rising and wearing
-		back down, supercontinents assembling and shattering, life greening the
-		land — until the engine inside finally cools, the magnetic field gutters
-		out, and the world keeps only its scars.
-	</p>
-	<p class="story">
-		Every world grows from a single seed, and every run is a story. Watch it
-		unfold, hover anywhere to read the rocks beneath, nudge the sun or the
-		mantle and see what happens, and when it's all over — rewind time and
-		replay the entire life of your planet. Or branch history and try again.
-	</p>
+      <p class="story">
+        Gaia simulates the whole geological life of a planet, from birth until
+        death. Heat leaving the core drives convection in the mantle, and that
+        convection drags the crust around above it. The planet is modeled as a
+        sphere paved with thousands of rock columns, each tracking its own
+        density, temperature, thickness and age. On top of that runs a layer of
+        surface processes — erosion, precipitation, drainage — that wear the
+        rock down, carry it downhill, and lay it back down as sediment. Nothing
+        is painted on. The mountains are there because something pushed them up,
+        and the sandstone is there because a river put it there.
+      </p>
+      <p class="story">
+        Every world grows from a single seed, and every run is a story. Watch it
+        unfold, hover anywhere to read the rocks beneath, nudge the sun or the
+        mantle and see what happens, and when it's all over — rewind time and
+        replay the entire life of your planet. Or branch history and try again.
+      </p>
 
-	<div class="buttons">
-		<!-- these two hrefs point at GitHub Release assets and are rewritten by
+      <p class="systems-intro">what's actually running underneath</p>
+      <ul class="systems">
+        <li>
+          <b>Core &amp; dynamo</b><span
+            >The core cools, an inner core freezes out, and the magnetic field
+            it drives can falter, reverse, and finally die.</span
+          >
+        </li>
+        <li>
+          <b>Mantle convection</b><span
+            >Upwellings, downwellings and plumes — over two hot piles that sit
+            on the core-mantle boundary for billions of years.</span
+          >
+        </li>
+        <li>
+          <b>Plate tectonics</b><span
+            >Drift, subduction, collision, rifting, and the slow assembly and
+            shattering of supercontinents.</span
+          >
+        </li>
+        <li>
+          <b>Isostasy</b><span
+            >Every column floats at the height its own density and thickness
+            allow. Thicken it and it rises.</span
+          >
+        </li>
+        <li>
+          <b>Volcanism</b><span
+            >Arc chains above subduction, hotspot island trails, flood basalts,
+            and the occasional supereruption.</span
+          >
+        </li>
+        <li>
+          <b>Earthquakes</b><span
+            >Stress loads on faults until it slips, and a rupture can cascade
+            along a boundary into a real magnitude 9.</span
+          >
+        </li>
+        <li>
+          <b>Climate</b><span
+            >Sunlight, the carbon cycle and ice-albedo feedback. Both a snowball
+            and a runaway greenhouse are reachable.</span
+          >
+        </li>
+        <li>
+          <b>Wind &amp; rain</b><span
+            >Prevailing winds carry moisture inland, mountains wring it out, and
+            deserts form in the shadow behind them.</span
+          >
+        </li>
+        <li>
+          <b>Erosion</b><span
+            >Glacial, river, hillslope and chemical — four different ways to
+            take a mountain apart, each leaving its own mark.</span
+          >
+        </li>
+        <li>
+          <b>Rivers</b><span
+            >Drainage networks find their way downhill, cut valleys as they go,
+            and build deltas where they reach the sea.</span
+          >
+        </li>
+        <li>
+          <b>Ice &amp; sea level</b><span
+            >Glaciers gain and lose mass, and the water they lock up drops the
+            sea everywhere else in the world.</span
+          >
+        </li>
+        <li>
+          <b>The rock record</b><span
+            >Sediment hardens into stone, granite is unroofed by erosion, buried
+            rock cooks into gneiss. It reads like real stratigraphy.</span
+          >
+        </li>
+      </ul>
+
+      <div class="doodle">~ ~ ~</div>
+
+      <p class="systems-intro">
+        the same world, read a dozen different ways — this is Ashdra, 4.3
+        billion years old
+      </p>
+      <div class="gallery">
+        <figure>
+          <img
+            src="static/gallery/terrain.jpg"
+            alt="Terrain view: oceans, continents, ice caps"
+            loading="lazy"
+          />
+          <figcaption>Terrain<span>what you'd see from orbit</span></figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/plates.jpg"
+            alt="Plate view: each tectonic plate in its own colour"
+            loading="lazy"
+          />
+          <figcaption>Plates<span>every plate, and its drift</span></figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/crust-age.jpg"
+            alt="Crust age: young ocean floor against ancient continental cores"
+            loading="lazy"
+          />
+          <figcaption>
+            Crust age<span>young seafloor, ancient cratons</span>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/stress.jpg"
+            alt="Stress view: where the crust is loaded"
+            loading="lazy"
+          />
+          <figcaption>
+            Stress<span>where the crust is loaded and ready to slip</span>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/thickness.jpg"
+            alt="Crust thickness"
+            loading="lazy"
+          />
+          <figcaption>
+            Thickness<span>deep roots under old mountains</span>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/precipitation.jpg"
+            alt="Precipitation map"
+            loading="lazy"
+          />
+          <figcaption>Rainfall<span>and the deserts behind it</span></figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/vegetation.jpg"
+            alt="Vegetation cover"
+            loading="lazy"
+          />
+          <figcaption>
+            Vegetation<span>where life got a foothold</span>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/rivers.jpg"
+            alt="Water flow: river discharge"
+            loading="lazy"
+          />
+          <figcaption>
+            Water flow<span>every river, and how much it carries</span>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/sediment.jpg"
+            alt="Sediment thickness"
+            loading="lazy"
+          />
+          <figcaption>
+            Sediment<span>what the rivers dumped, and where</span>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/surface-rock.jpg"
+            alt="Rock type exposed at the surface"
+            loading="lazy"
+          />
+          <figcaption>
+            Surface rock<span>the stone actually underfoot</span>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/faults.jpg"
+            alt="Fault and plate boundary notation"
+            loading="lazy"
+          />
+          <figcaption>
+            Faults<span>trenches, ridges and transforms</span>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/winds.jpg"
+            alt="Prevailing winds and ocean currents"
+            loading="lazy"
+          />
+          <figcaption>
+            Winds<span>prevailing air, and the currents below</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <p class="systems-intro">
+        and you can peel the whole thing open, layer by layer, to the centre
+      </p>
+      <div class="gallery">
+        <figure>
+          <img
+            src="static/gallery/peel-1-basement.jpg"
+            alt="Basement rock beneath the surface"
+            loading="lazy"
+          />
+          <figcaption>Basement rock</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/peel-2-lower-crust.jpg"
+            alt="Lower crust"
+            loading="lazy"
+          />
+          <figcaption>Lower crust</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/peel-3-moho.jpg"
+            alt="The Moho and mantle lithosphere"
+            loading="lazy"
+          />
+          <figcaption>Moho<span>mantle lithosphere</span></figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/peel-4-asthenosphere.jpg"
+            alt="The asthenosphere"
+            loading="lazy"
+          />
+          <figcaption>Asthenosphere</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/peel-5-cmb.jpg"
+            alt="The core-mantle boundary"
+            loading="lazy"
+          />
+          <figcaption>
+            Core-mantle boundary<span>where the hot piles sit</span>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="static/gallery/peel-7-inner-core.jpg"
+            alt="The inner core"
+            loading="lazy"
+          />
+          <figcaption>
+            Inner core<span>frozen iron, still growing</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="buttons">
+        <!-- these two hrefs point at GitHub Release assets and are rewritten by
 		     build\package.ps1 -UpdateSite each release — don't hand-edit them. -->
-		<a class="btn download" href="https://github.com/SteveCastle/gaia-site/releases/download/v0.1.0/Gaia-Setup-0.1.0.exe">⬇ Download for Windows</a>
-		<a class="btn donate" href="https://www.patreon.com/cw/GaiaGeologySimulator">♥ Support on Patreon</a>
-	</div>
-	<p class="small-note">
-		early access is free — patrons keep the mantle convecting<br>
-		Windows 10+, 64-bit · no installer? grab the
-		<a class="portable-link" href="https://github.com/SteveCastle/gaia-site/releases/download/v0.1.0/Gaia-0.1.0-windows-portable.zip">portable ZIP</a>
-	</p>
+        <a
+          class="btn download"
+          href="https://github.com/SteveCastle/gaia-site/releases/download/v0.1.0/Gaia-Setup-0.1.0.exe"
+          >⬇ Download for Windows</a
+        >
+        <a
+          class="btn donate"
+          href="https://www.patreon.com/cw/GaiaGeologySimulator"
+          >♥ Support on Patreon</a
+        >
+      </div>
+      <p class="small-note">
+        early access is free — patrons keep the mantle convecting<br />
+        Windows 10+, 64-bit · no installer? grab the
+        <a
+          class="portable-link"
+          href="https://github.com/SteveCastle/gaia-site/releases/download/v0.1.0/Gaia-0.1.0-windows-portable.zip"
+          >portable ZIP</a
+        >
+      </p>
 
-	<footer>
-		hand-made with rocks, rain, and deep time
-	</footer>
-</main>
-</body>
+      <footer>hand-made with rocks, rain, and deep time</footer>
+    </main>
+  </body>
 </html>
